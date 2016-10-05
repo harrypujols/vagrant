@@ -5,7 +5,25 @@ PASSWORD='root'
 PROJECTFOLDER='public'
 
 # create project folder
-sudo mkdir "/var/www/html/${PROJECTFOLDER}"
+HTML=$(cat <<EOF
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Web page</title>
+  </head>
+  <body>
+    <h1>Hello <?php echo "World"; ?></h1>
+    <a href="http://166.166.66.60/phpmyadmin/">Go to PHPMyAdmin</a>
+  </body>
+</html>
+EOF
+)
+
+if [ ! -d "/vagrant/${PROJECTFOLDER}" ]; then
+  mkdir "/vagrant/${PROJECTFOLDER}"
+  echo "${HTML}" > /vagrant/$PROJECTFOLDER/index.php
+fi
 
 # update / upgrade
 sudo apt-get update
