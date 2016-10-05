@@ -80,7 +80,7 @@ VHOST=$(cat <<EOF
 </VirtualHost>
 EOF
 )
-echo "${VHOST}" > /etc/apache2/sites-available/public.conf
+echo "${VHOST}" > /etc/apache2/sites-available/$PROJECTFOLDER.conf
 
 # enable mod_rewrite
 sudo a2enmod rewrite
