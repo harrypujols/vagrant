@@ -14,6 +14,10 @@ Vagrant.configure("2") do |config|
   # boxes at https://atlas.hashicorp.com/search.
   config.vm.box = "ubuntu/trusty64"
 
+  # Share local ssh keys. When logged in, activate keys,
+  # example `ssh -T git@github.com`
+  # config.ssh.forward_agent = true
+
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
