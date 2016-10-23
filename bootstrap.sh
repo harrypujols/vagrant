@@ -92,7 +92,10 @@ VHOST=$(cat <<EOF
 </VirtualHost>
 EOF
 )
+
 echo "${VHOST}" > /etc/apache2/sites-available/$PROJECT.conf
+cp /etc/apache2/sites-available/$PROJECT.conf /etc/apache2/sites-available/default.conf
+sed -i "s/\\/$PROJECT//g" /etc/apache2/sites-available/default.conf
 
 # enable mod_rewrite
 sudo a2enmod rewrite
