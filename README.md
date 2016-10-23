@@ -7,7 +7,6 @@ A portable LAMP virtual box
 - In this directory, run `vagrant up`
 - Profit
 
-
 ## to set up new sites
 connect to the virtual box
 ```bash
@@ -42,3 +41,13 @@ save the IP into the file
 ```
 166.166.66.60 foo.com
 ```
+
+## to set up a GUI
+
+**MySQL Host:** 127.0.0.1
+**User:** root
+**Password:** root
+**SSH Host:** foo.com
+**SSH User:** vagrant
+**SSH Password:** vagrant
+**SSH Port:** 22
