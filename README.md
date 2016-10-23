@@ -44,10 +44,10 @@ save the IP into the file
 
 ## to set up a GUI
 
-**MySQL Host:** 127.0.0.1
-**User:** root
-**Password:** root
-**SSH Host:** foo.com
-**SSH User:** vagrant
-**SSH Password:** vagrant
-**SSH Port:** 22
+| **MySQL Host:**   | 127.0.0.1      |
+| **User:**         | root           |
+| **Password:**     | root           |
+| **SSH Host:**     | foo.com        |
+| **SSH User:**     | vagrant        |
+| **SSH Password:** | vagrant        |
+| **SSH Port:**     |  22            |
