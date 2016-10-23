@@ -104,6 +104,4 @@ service apache2 restart
 sudo apt-get -y install git
 
 # all done
-COLOR='\033[0;36m'
-NC='\033[0m'
-printf "${COLOR}${PROJECT} site running on http://166.166.66.60/${PROJECT}${NC}"
+printf "\033[0;36m${PROJECT} site running on \033[0;35mhttp://166.166.66.60/${PROJECT}\033[0m"
