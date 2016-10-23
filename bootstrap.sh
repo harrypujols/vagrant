@@ -39,7 +39,7 @@ sudo apt-get update
 sudo apt-get -y upgrade
 
 # cosmetic terminal prompt
-echo 'export PS1="\[\033[0;33m\][\W] \[\033[0m\]$ "' >> /home/vagrant/.bash_profile
+echo 'export PS1="\[\033[0;34m\][\W] \[\033[0m\]$ "' >> /home/vagrant/.bash_profile
 
 # install apache
 sudo apt-get install -y apache2
