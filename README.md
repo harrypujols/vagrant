@@ -44,9 +44,14 @@ save the IP into the file
 
 ## to set up a GUI
 
-| **User:**         | root           |
-| **Password:**     | root           |
-| **SSH Host:**     | foo.com        |
-| **SSH User:**     | vagrant        |
-| **SSH Password:** | vagrant        |
-| **SSH Port:**     |  22            |
+**User:**         root
+
+**Password:**     root
+
+**SSH Host:**     foo.com
+
+**SSH User:**     vagrant
+
+**SSH Password:** vagrant
+
+**SSH Port:**     22
