@@ -44,6 +44,8 @@ save the IP into the file
 
 ## to set up a GUI
 
+**MySQL Host**    127.0.0.1
+
 **User:**         root
 
 **Password:**     root
