@@ -19,7 +19,7 @@ $ sudo vim /etc/apache2/sites-available/foo.conf
 ```
 
 add the server name to the file
-```
+```xml
 <VirtualHost *:80>
   ServerName foo.com
   ServerAlias www.example.com
@@ -38,11 +38,11 @@ in your local, access the hosts file
 $ sudo vim /etc/hosts
 ```
 save the IP into the file
-```
+```shell
 166.166.66.60 foo.com
 ```
 
-## to set up a GUI
+## database ssh credentials
 
 **MySQL Host:**    127.0.0.1
 
