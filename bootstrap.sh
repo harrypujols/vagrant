@@ -49,8 +49,8 @@ if ! [ -L /var/www ]; then
   ln -fs /vagrant /var/www/html
 fi
 
-# install php5
-sudo apt-get install -y php5 libapache2
+# install php latest
+sudo apt-get install -y php libapache2
 
 # install mysql and give password to installer
 sudo debconf-set-selections <<< "mysql-server mysql-server/root_password password $PASSWORD"
