@@ -29,7 +29,7 @@ HTML=$(cat <<EOF
 EOF
 )
 
-if [ ! -f "/vagrant/${PROJECT}/index.php" ]; then
+if [ ! "$( ls -A /vagrant/${PROJECT} )" ]; then
   echo -e "${HTML}" > /vagrant/$PROJECT/index.php
 fi
 
