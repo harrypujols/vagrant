@@ -37,9 +37,6 @@ fi
 sudo apt-get update
 sudo apt-get -y upgrade
 
-# cosmetic terminal prompt
-echo 'export PS1="\[\033[0;34m\][\W] \[\033[0m\]$ "' >> /home/vagrant/.bash_profile
-
 # install apache
 sudo apt-get install -y apache2
 
@@ -49,8 +46,7 @@ sudo apt-get install -y php libapache2
 # install mysql and give password to installer
 sudo debconf-set-selections <<< "mysql-server mysql-server/root_password password $PASSWORD"
 sudo debconf-set-selections <<< "mysql-server mysql-server/root_password_again password $PASSWORD"
-sudo apt-get -y install mysql-server
-sudo apt-get install -y php7.0-mysql
+sudo apt-get -y install mysql-server php-mysql
 
 # install phpmyadmin and give password(s) to installer
 # for simplicity I'm using the same password for mysql and phpmyadmin
