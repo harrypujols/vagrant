@@ -50,7 +50,7 @@ sudo apt-get install -y php libapache2
 sudo debconf-set-selections <<< "mysql-server mysql-server/root_password password $PASSWORD"
 sudo debconf-set-selections <<< "mysql-server mysql-server/root_password_again password $PASSWORD"
 sudo apt-get -y install mysql-server
-sudo apt-get install -y php5-mysql
+sudo apt-get install -y php7.0-mysql
 
 # install phpmyadmin and give password(s) to installer
 # for simplicity I'm using the same password for mysql and phpmyadmin
@@ -60,7 +60,7 @@ sudo debconf-set-selections <<< "phpmyadmin phpmyadmin/mysql/admin-pass password
 sudo debconf-set-selections <<< "phpmyadmin phpmyadmin/mysql/app-pass password $PASSWORD"
 sudo debconf-set-selections <<< "phpmyadmin phpmyadmin/reconfigure-webserver multiselect apache2"
 sudo apt-get -y install phpmyadmin
-sudo php5enmod mcrypt
+sudo phpenmod mcrypt
 
 # setup mysql user
 MY=$(cat <<EOF
@@ -73,7 +73,7 @@ EOF
 echo "${MY}" > /home/vagrant/.my.cnf
 
 # create a database
-mysql -uroot -e "create database ${PROJECT};"
+mysql --user=$PASSWORD --password=$PASSWORD -e "create database ${PROJECT};"
 
 # setup hosts file
 VHOST=$(cat <<EOF
