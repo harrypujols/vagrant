@@ -38,16 +38,8 @@ fi
 sudo apt-get update
 sudo apt-get -y upgrade
 
-# cosmetic terminal prompt
-echo 'export PS1="\[\033[0;34m\][\W] \[\033[0m\]$ "' >> /home/vagrant/.bash_profile
-
 # install apache
 sudo apt-get install -y apache2
-
-if ! [ -L /var/www ]; then
-  rm -rf /var/www/html
-  ln -fs /vagrant /var/www/html
-fi
 
 # install php latest
 sudo apt-get install -y php libapache2
@@ -107,4 +99,4 @@ service apache2 restart
 sudo apt-get -y install git
 
 # all done
-printf "\033[0;36m${PROJECT} site running on \033[0;35mhttp://166.166.66.60/${PROJECT}\033[0m"
+printf "\033[0;36m${PROJECT} site running on \033[0;35mhttp://166.166.66.60\033[0m"
