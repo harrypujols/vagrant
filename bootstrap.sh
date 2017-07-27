@@ -3,6 +3,7 @@
 # Use single quotes instead of double quotes to make it work with special-character passwords
 PASSWORD='root'
 PROJECT=$1
+IP=$2
 
 # create project folder
 HTML=$(cat <<EOF
@@ -100,4 +101,4 @@ service apache2 restart
 sudo apt-get -y install git
 
 # all done
-printf "\033[0;36m${PROJECT} site running on \033[0;35mhttp://166.166.66.60\033[0m"
+printf "\033[0;36m${PROJECT} site running on \033[0;35mhttp://${IP}\033[0m"
