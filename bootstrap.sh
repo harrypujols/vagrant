@@ -43,6 +43,9 @@ sudo apt-get install -y apache2
 # install php latest
 sudo apt-get install -y php libapache2
 
+# install composer
+sudo apt-get install -y zip unzip composer
+
 # install mysql and give password to installer
 sudo debconf-set-selections <<< "mysql-server mysql-server/root_password password $PASSWORD"
 sudo debconf-set-selections <<< "mysql-server mysql-server/root_password_again password $PASSWORD"
@@ -74,8 +77,8 @@ mysql --user=$PASSWORD --password=$PASSWORD -e "create database ${PROJECT};"
 # setup hosts file
 VHOST=$(cat <<EOF
 <VirtualHost *:80>
-    DocumentRoot "/var/www/html/${PROJECT}"
-    <Directory "/var/www/html/${PROJECT}">
+    DocumentRoot "/var/www/html"
+    <Directory "/var/www/html">
         AllowOverride All
         Require all granted
     </Directory>
