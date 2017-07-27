@@ -2,7 +2,7 @@
 
 # Use single quotes instead of double quotes to make it work with special-character passwords
 PASSWORD='root'
-PROJECT='public'
+PROJECT=$1
 
 # create project folder
 HTML=$(cat <<EOF
@@ -29,14 +29,16 @@ HTML=$(cat <<EOF
 EOF
 )
 
-if [ ! -d "/vagrant/${PROJECT}" ]; then
-  mkdir "/vagrant/${PROJECT}"
+if [ ! -f "/vagrant/${PROJECT}/index.php" ]; then
   echo -e "${HTML}" > /vagrant/$PROJECT/index.php
 fi
 
 # update / upgrade
 sudo apt-get update
 sudo apt-get -y upgrade
+
+# cosmetic terminal prompt
+echo 'export PS1="\[\033[0;34m\][\W] \[\033[0m\]$ "' >> /home/vagrant/.bash_profile
 
 # install apache
 sudo apt-get install -y apache2
