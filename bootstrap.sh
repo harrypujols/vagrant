@@ -30,6 +30,8 @@ HTML=$(cat <<EOF
 EOF
 )
 
+sudo ln -s /var/www /vagrant
+
 if [ ! "$( ls -A /vagrant/${PROJECT} )" ]; then
   echo -e "${HTML}" > /vagrant/$PROJECT/index.php
 fi
@@ -78,8 +80,11 @@ mysql --user=$PASSWORD --password=$PASSWORD -e "create database ${PROJECT};"
 # setup hosts file
 VHOST=$(cat <<EOF
 <VirtualHost *:80>
-    DocumentRoot "/var/www/html"
-    <Directory "/var/www/html">
+    ServerAdmin webmaster@localhost
+    ServerName $PROJECT.local
+	  ServerAlias www.$PROJECT.local
+    DocumentRoot /var/www/$PROJECT
+    <Directory "/var/www/$PROJECT">
         AllowOverride All
         Require all granted
     </Directory>
@@ -87,15 +92,39 @@ VHOST=$(cat <<EOF
 EOF
 )
 
-echo "${VHOST}" > /etc/apache2/sites-available/$PROJECT.conf
-cp /etc/apache2/sites-available/$PROJECT.conf /etc/apache2/sites-available/default.conf
-sed -i "s/\\/$PROJECT//g" /etc/apache2/sites-available/default.conf
+echo "${VHOST}" > /etc/apache2/sites-available/$PROJECT.local.conf
+sudo sed -i "s/html/$PROJECT/g" /etc/apache2/sites-available/000-default.conf
+sudo a2ensite $PROJECT.local.conf
 
-# enable mod_rewrite
+# enable mods
 sudo a2enmod rewrite
+sudo a2enmod headers
+sudo a2enmod expires
+sudo a2enmod include
+
+# change apache configurations
+ACONF=$(cat <<EOF
+<Directory /var/www/>
+	Options Indexes FollowSymLinks
+	AllowOverride None
+	Require all granted
+</Directory>
+EOF
+)
+
+NCONF=$(cat <<EOF
+<Directory /var/www/>
+	Options Indexes FollowSymLinks
+	AllowOverride All
+	Require all granted
+</Directory>
+EOF
+)
+
+sudo sed "s/$ACONF/$NCONF/g" /etc/apache2/apache2.conf
 
 # restart apache
-service apache2 restart
+sudo service apache2 restart
 
 # install git
 sudo apt-get -y install git
