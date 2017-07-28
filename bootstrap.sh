@@ -30,11 +30,12 @@ HTML=$(cat <<EOF
 EOF
 )
 
-sudo ln -s /var/www /vagrant
 
-if [ ! "$( ls -A /vagrant/${PROJECT} )" ]; then
-  echo -e "${HTML}" > /vagrant/$PROJECT/index.php
+if [ ! "$( ls -A /var/www/${PROJECT} )" ]; then
+  echo -e "${HTML}" > /var/www/$PROJECT/index.php
 fi
+
+sudo ln -s /var/www /vagrant
 
 # update / upgrade
 sudo apt-get update
@@ -103,25 +104,7 @@ sudo a2enmod expires
 sudo a2enmod include
 
 # change apache configurations
-ACONF=$(cat <<EOF
-<Directory /var/www/>
-	Options Indexes FollowSymLinks
-	AllowOverride None
-	Require all granted
-</Directory>
-EOF
-)
-
-NCONF=$(cat <<EOF
-<Directory /var/www/>
-	Options Indexes FollowSymLinks
-	AllowOverride All
-	Require all granted
-</Directory>
-EOF
-)
-
-sudo sed "s/$ACONF/$NCONF/g" /etc/apache2/apache2.conf
+sudo sed -i "/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride all/" /etc/apache2/apache2.conf
 
 # restart apache
 sudo service apache2 restart
