@@ -65,8 +65,8 @@ sudo phpenmod mcrypt
 # setup mysql user
 MY=$(cat <<EOF
 [client]
-user=root
-password=root
+user=$PASSWORD
+password=$PASSWORD
 host=localhost
 EOF
 )
