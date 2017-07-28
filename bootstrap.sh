@@ -88,10 +88,10 @@ EOF
 )
 
 echo "${VHOST}" > /etc/apache2/sites-available/$PROJECT.conf
-cp /etc/apache2/sites-available/$PROJECT.conf /etc/apache2/sites-available/default.conf
-sed -i "s/\\/$PROJECT//g" /etc/apache2/sites-available/default.conf
+sudo a2ensite $PROJECT.conf
 
 # enable mod_rewrite
+sudo sed -i "/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride all/" /etc/apache2/apache2.conf
 sudo a2enmod rewrite
 
 # restart apache
