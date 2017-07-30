@@ -31,11 +31,11 @@ EOF
 )
 
 
-if [ ! "$( ls -A /var/www/${PROJECT} )" ]; then
-  echo -e "${HTML}" > /var/www/$PROJECT/index.php
+if [ ! "$( ls -A /var/www/html )" ]; then
+  echo -e "${HTML}" > /var/www/html/index.php
 fi
 
-sudo ln -s /var/www /vagrant
+sudo ln -s /var/www/html /home/vagrant/public
 
 # update / upgrade
 sudo apt-get update
@@ -84,8 +84,8 @@ VHOST=$(cat <<EOF
     ServerAdmin webmaster@localhost
     ServerName $PROJECT.local
 	  ServerAlias www.$PROJECT.local
-    DocumentRoot /var/www/$PROJECT
-    <Directory "/var/www/$PROJECT">
+    DocumentRoot /var/www/html
+    <Directory "/var/www/html">
         AllowOverride All
         Require all granted
     </Directory>
@@ -94,7 +94,6 @@ EOF
 )
 
 echo "${VHOST}" > /etc/apache2/sites-available/$PROJECT.local.conf
-sudo sed -i "s/html/$PROJECT/g" /etc/apache2/sites-available/000-default.conf
 sudo a2ensite $PROJECT.local.conf
 
 # enable mods
