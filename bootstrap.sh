@@ -39,7 +39,7 @@ sudo ln -s /var/www/html /home/vagrant/public
 
 # update / upgrade
 sudo apt-get update
-sudo apt-get -y upgrade
+DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
 
 # install apache
 sudo apt-get install -y apache2
