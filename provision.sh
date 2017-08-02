@@ -55,6 +55,9 @@ sudo a2enmod include
 # restart apache
 service apache2 restart
 
+# symlink site's folder
+sudo ln -s /var/www/html /home/vagrant/$PROJECT
+
 # install git
 sudo apt-get -y install git
 
