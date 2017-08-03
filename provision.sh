@@ -15,6 +15,16 @@ apt-get install -y apache2
 # install php latest
 apt-get install -y php libapache2
 
+# install webmin
+echo "deb http://download.webmin.com/download/repository sarge contrib" >> /etc/apt/sources.list
+wget http://www.webmin.com/jcameron-key.asc
+apt-key add jcameron-key.asc
+apt-get update
+apt-get install -y webmin
+
+# clean up
+rm jcameron-key.asc
+
 # install composer
 apt-get install -y zip unzip composer
 
@@ -44,31 +54,18 @@ EOF
 
 echo "$MY" > /home/vagrant/.my.cnf
 
-# create a database
-mysql --user=$PASSWORD --password=$PASSWORD -e "create database $PROJECT;"
-
 # enable mod_rewrite
 a2enmod rewrite
 a2enmod headers
 a2enmod expires
 a2enmod include
-
-# restart apache
-service apache2 restart
-
-# symlink site's folder
-ln -s /var/www/html /home/vagrant/$PROJECT
+a2enmod php7.0
 
 # install git
 apt-get install -y git
 
-# install webmin
-echo "deb http://download.webmin.com/download/repository sarge contrib" >> /etc/apt/sources.list
-wget http://www.webmin.com/jcameron-key.asc
-apt-key add jcameron-key.asc
-apt-get update
-apt-get install -y webmin
-rm jcameron-key.asc
+# restart apache
+service apache2 restart
 
 # all done
 echo "Local webmin running on https://$IP:10000"
