@@ -54,17 +54,20 @@ EOF
 
 echo "$MY" > /home/vagrant/.my.cnf
 
-# enable mod_rewrite
+# enable mods
 a2enmod rewrite
 a2enmod headers
 a2enmod expires
 a2enmod include
 
+# change apache configurations
+sed -i "/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride all/" /etc/apache2/apache2.conf
+
 # install git
 apt-get install -y git
 
 # symlink site's folder
-ln -s /var/www/html /home/vagrant/$PROJECT
+# ln -s /var/www/html /home/vagrant/$PROJECT
 
 # restart apache
 service apache2 restart
