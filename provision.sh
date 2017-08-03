@@ -68,6 +68,7 @@ wget http://www.webmin.com/jcameron-key.asc
 apt-key add jcameron-key.asc
 apt-get update
 apt-get install -y webmin
+rm jcameron-key.asc
 
 # all done
 echo "Local webmin running on https://$IP:10000"
