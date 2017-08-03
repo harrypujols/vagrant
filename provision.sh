@@ -59,10 +59,12 @@ a2enmod rewrite
 a2enmod headers
 a2enmod expires
 a2enmod include
-a2enmod php7.0
 
 # install git
 apt-get install -y git
+
+# symlink site's folder
+ln -s /var/www/html /home/vagrant/$PROJECT
 
 # restart apache
 service apache2 restart
