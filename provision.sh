@@ -9,21 +9,14 @@ IP=$2
 apt-get update
 DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
 
-# install apache
-apt-get install -y apache2
-
 # install php latest
 apt-get install -y php libapache2
 
-# install webmin
-echo "deb http://download.webmin.com/download/repository sarge contrib" >> /etc/apt/sources.list
-wget http://www.webmin.com/jcameron-key.asc
-apt-key add jcameron-key.asc
+# add php packages
+add-apt-repository -y ppa:ondrej/php
 apt-get update
-apt-get install -y webmin
-
-# clean up
-rm jcameron-key.asc
+apt-get install -y php-uploadprogress
+phpenmod uploadprogress
 
 # install composer
 apt-get install -y zip unzip composer
@@ -51,8 +44,10 @@ password=root
 host=localhost
 EOF
 )
-
 echo "$MY" > /home/vagrant/.my.cnf
+
+# install apache
+apt-get install -y apache2
 
 # enable mods
 a2enmod rewrite
@@ -63,13 +58,34 @@ a2enmod include
 # change apache configurations
 sed -i "/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride all/" /etc/apache2/apache2.conf
 
-# install git
-apt-get install -y git
+# setup hosts file
+VHOST=$(cat <<EOF
+<VirtualHost *:80>
+    DocumentRoot "/var/www/$PROJECT"
+    <Directory "/var/www/$PROJECT">
+        AllowOverride All
+        Require all granted
+    </Directory>
+</VirtualHost>
+EOF
+)
 
-# install node
-apt-get install -y npm
-npm install -g n
-n stable
+echo "$VHOST" > /etc/apache2/sites-available/default.conf
+
+
+# install webmin
+echo "deb http://download.webmin.com/download/repository sarge contrib" >> /etc/apt/sources.list
+wget http://www.webmin.com/jcameron-key.asc
+apt-key add jcameron-key.asc
+apt-get update
+apt-get install -y webmin
+
+# clean up
+rm jcameron-key.asc
+
+# allow <? in php assuming php latest is 7.0
+# in Webin check on folder /etc/php/ to point to correct config file
+sed -i "s/short_open_tag = .*/short_open_tag = On/" /etc/php/7.0/apache2/php.ini
 
 # restart apache
 service apache2 restart
