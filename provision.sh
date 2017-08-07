@@ -66,8 +66,10 @@ sed -i "/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOve
 # install git
 apt-get install -y git
 
-# symlink site's folder
-# ln -s /var/www/html /home/vagrant/$PROJECT
+# install node
+apt-get install -y npm
+npm install -g n
+n stable
 
 # restart apache
 service apache2 restart
